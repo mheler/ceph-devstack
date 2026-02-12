@@ -16,7 +16,7 @@ class Container(PodmanResource):
         "podman",
         "build",
         "-t",
-        "{name}:{image_tag}",
+        "{image}",
         ".",
     ]
     create_cmd: List[str] = ["podman", "container", "create", "{name}"]
@@ -51,7 +51,7 @@ class Container(PodmanResource):
     @property
     def image(self):
         if self.repo:
-            return f"localhost/{self.name}"
+            return f"localhost/{self.__class__.__name__.lower()}"
         return self.config["image"]
 
     @property
